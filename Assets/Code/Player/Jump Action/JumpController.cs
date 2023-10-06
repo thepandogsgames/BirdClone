@@ -6,6 +6,8 @@ namespace Code.Player.Jump_Action
 {
     public class JumpController : MonoBehaviour
     {
+        [SerializeField] private float jumpForce;
+
         private IJumpAction _standardJump;
         private IJumpAction _currentJump;
 
@@ -17,7 +19,7 @@ namespace Code.Player.Jump_Action
         private void Config()
         {
             _standardJump = new StandardJump();
-            _standardJump.Config(GetComponent<Rigidbody2D>(), 2f);
+            _standardJump.Config(GetComponent<Rigidbody2D>(), jumpForce);
             _currentJump = _standardJump;
         }
         

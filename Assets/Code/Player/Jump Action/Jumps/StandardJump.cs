@@ -9,7 +9,7 @@ namespace Code.Player.Jump_Action.Jumps
         
         public void DoJump()
         {
-            Debug.Log("StandardJump: " + "rb -> " + _rb + " jump force: " + _jumpforce);
+            _rb.velocity = Vector2.up * _jumpforce;
         }
 
         public void Config(Rigidbody2D rigidbody2D, float jumpForce)
