@@ -1,22 +1,21 @@
 using UnityEngine;
 
-namespace Code.Player
+namespace Code.Scene
 {
     public class ScoreManager : MonoBehaviour
     {
-        private int _score;
-        private int _maxScore;
+        private int _score = 0;
+        private int _maxScore = 0;
 
-
+        
         public void AddScore(int score)
         {
             _score += score;
         }
 
-        public int GetScore()
+        public void SetMaxScore(int score)
         {
-            return _score;
+            _maxScore = score;
         }
-
     }
 }

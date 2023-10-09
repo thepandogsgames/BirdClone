@@ -1,4 +1,5 @@
 using System;
+using Code.Scene;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,7 +9,13 @@ namespace Code.Pipes
     {
         [SerializeField] private float speed;
         [SerializeField] private Vector3 startPosition;
+        private ScoreManager _scoreManager; 
         private Vector3 _movement;
+
+        private void Awake()
+        {
+            _scoreManager = FindObjectOfType<ScoreManager>();
+        }
 
         private void Update()
         {
@@ -24,9 +31,9 @@ namespace Code.Pipes
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.CompareTag("Player"))
+            if (other.CompareTag("Player"))
             {
-                Reset();
+                _scoreManager.AddScore(1);
             }
         }
 

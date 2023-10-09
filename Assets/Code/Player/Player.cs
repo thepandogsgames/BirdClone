@@ -1,4 +1,3 @@
-using System;
 using Code.Input;
 using Code.Player.Jump_Action;
 using UnityEngine;
@@ -17,6 +16,14 @@ namespace Code.Player
         public void ActionButtonPressed()
         {
             _jumpController.Jump();
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("DeadZone"))
+            {
+                Debug.Log("Dead");
+            }
         }
     }
 }
