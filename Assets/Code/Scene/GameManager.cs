@@ -2,6 +2,7 @@ using System;
 using Code.Persistance;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Code.Scene
 {
@@ -11,6 +12,9 @@ namespace Code.Scene
         private ISave _save;
         private ILoad _load;
         private ScoreManager _scoreManager;
+        [SerializeField] private GameObject startMenu;
+        [SerializeField] private GameObject pauseMenu;
+        [SerializeField] private GameObject endMenu;
 
         private void Awake()
         {
@@ -27,5 +31,27 @@ namespace Code.Scene
             Instantiate(player, Vector3.zero, quaternion.identity );
         }
 
+        public void OnPlayerDead()
+        {
+            Time.timeScale = 0f;
+            endMenu.SetActive(true);
+            SaveScore();
+        }
+
+        public void RestartGame()
+        {
+            Time.timeScale = 1f;
+            Debug.Log("load scene");
+            SceneManager.LoadScene(0);
+        }
+
+        public void SaveScore()
+        {
+            int currentScore = _scoreManager.GetScore();
+            if (currentScore > _load.LoadBestScore())
+            {
+                _save.SaveScore(currentScore);
+            }
+        }
     }
 }

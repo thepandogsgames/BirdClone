@@ -1,5 +1,6 @@
 using Code.Input;
 using Code.Player.Jump_Action;
+using Code.Scene;
 using UnityEngine;
 
 namespace Code.Player
@@ -7,10 +8,12 @@ namespace Code.Player
     public class Player : MonoBehaviour, IInputs
     {
         private JumpController _jumpController;
+        private GameManager _gameManager;
 
         private void Awake()
         {
             _jumpController = GetComponent<JumpController>();
+            _gameManager = FindObjectOfType<GameManager>();
         }
 
         public void ActionButtonPressed()
@@ -22,7 +25,7 @@ namespace Code.Player
         {
             if (other.CompareTag("DeadZone"))
             {
-                Debug.Log("Dead");
+                _gameManager.OnPlayerDead();
             }
         }
     }
