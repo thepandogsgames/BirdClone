@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5327685431037579155}
   m_Layer: 0
   m_Name: Pipe_1
-  m_TagString: Pipe
+  m_TagString: DeadZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 3199719711858412674}
   m_Layer: 0
   m_Name: Pipe_0
-  m_TagString: Pipe
+  m_TagString: DeadZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 1401838142980430833}
   m_Layer: 0
   m_Name: Pipe
-  m_TagString: Untagged
+  m_TagString: ScoreZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -341,7 +341,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0020824634, y: 0.0050758123}
+  m_Offset: {x: 0.1936645, y: 0.0050758123}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -352,5 +352,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2295073, y: 2.1065419}
+  m_Size: {x: 0.046254784, y: 2.1065419}
   m_EdgeRadius: 0
