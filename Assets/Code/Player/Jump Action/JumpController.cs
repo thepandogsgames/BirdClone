@@ -7,6 +7,8 @@ namespace Code.Player.Jump_Action
     public class JumpController : MonoBehaviour
     {
         [SerializeField] private float jumpForce;
+        [SerializeField] private AudioClip jumpSfx;
+        private AudioSource _audioSource;
 
         private IJumpAction _standardJump;
         private IJumpAction _currentJump;
@@ -14,6 +16,7 @@ namespace Code.Player.Jump_Action
         private void Awake()
         {
             Config();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private void Config()
@@ -26,6 +29,7 @@ namespace Code.Player.Jump_Action
         public void Jump()
         {
             _currentJump.DoJump();
+            _audioSource.PlayOneShot(jumpSfx);
         }
     }
 }

@@ -7,17 +7,23 @@ namespace Code.Player
 {
     public class Player : MonoBehaviour, IInputs
     {
+        [SerializeField] private AudioClip deadSfx;
+        
         private JumpController _jumpController;
         private GameManager _gameManager;
+        private AudioSource _audioSource;
+        private bool _isDead = false;
 
         private void Awake()
         {
             _jumpController = GetComponent<JumpController>();
             _gameManager = FindObjectOfType<GameManager>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         public void ActionButtonPressed()
         {
+            if (_isDead) return;
             _jumpController.Jump();
         }
 
@@ -25,6 +31,8 @@ namespace Code.Player
         {
             if (other.CompareTag("DeadZone"))
             {
+                _isDead = true;
+                _audioSource.PlayOneShot(deadSfx);
                 _gameManager.OnPlayerDead();
             }
         }
