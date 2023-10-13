@@ -41,7 +41,6 @@ namespace Code.Scene
         public void RestartGame()
         {
             Time.timeScale = 1f;
-            Debug.Log("load scene");
             SceneManager.LoadScene(0);
         }
 

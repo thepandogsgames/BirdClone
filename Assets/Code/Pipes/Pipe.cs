@@ -9,12 +9,15 @@ namespace Code.Pipes
     {
         [SerializeField] private float speed;
         [SerializeField] private Vector3 startPosition;
+        [SerializeField] private AudioClip pointSfx;
         private ScoreManager _scoreManager; 
         private Vector3 _movement;
+        private AudioSource _audioSource;
 
         private void Awake()
         {
             _scoreManager = FindObjectOfType<ScoreManager>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -34,6 +37,7 @@ namespace Code.Pipes
             if (other.CompareTag("Player"))
             {
                 _scoreManager.AddScore(1);
+                _audioSource.PlayOneShot(pointSfx);
             }
         }
 
