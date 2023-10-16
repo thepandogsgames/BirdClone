@@ -310,7 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5.5
   startPosition: {x: 11, y: 0, z: 0}
-  pointSfx: {fileID: 8300000, guid: 76e3620fb1f35bf4f9d1f135f3620fba, type: 3}
+  pointSfx: {fileID: 8300000, guid: eeffae1aecf711642a45a372aa7aec36, type: 3}
 --- !u!61 &1401838142980430833
 BoxCollider2D:
   m_ObjectHideFlags: 0
