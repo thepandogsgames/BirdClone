@@ -290,6 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 6.5
   jumpSfx: {fileID: 8300000, guid: 663d438906b9d4542a84417a419baba5, type: 3}
+  dizzDuration: 12
 --- !u!114 &2112970003154078805
 MonoBehaviour:
   m_ObjectHideFlags: 0
