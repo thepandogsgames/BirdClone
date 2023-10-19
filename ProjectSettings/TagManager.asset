@@ -6,6 +6,8 @@ TagManager:
   tags:
   - DeadZone
   - ScoreZone
+  - SceneMusic
+  - Whirlwind
   layers:
   - Default
   - TransparentFX

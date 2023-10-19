@@ -12,8 +12,12 @@ namespace Code.Player
         private JumpController _jumpController;
         private GameManager _gameManager;
         private AudioSource _audioSource;
-        private bool _isDead = false;
-
+        private bool _canMove = true;
+        public bool CanMove
+        {
+            get => _canMove;
+            set => _canMove = value;
+        }
         private void Awake()
         {
             _jumpController = GetComponent<JumpController>();
@@ -23,7 +27,7 @@ namespace Code.Player
 
         public void ActionButtonPressed()
         {
-            if (_isDead) return;
+            if (!_canMove) return;
             _jumpController.Jump();
         }
 
@@ -31,7 +35,7 @@ namespace Code.Player
         {
             if (other.CompareTag("DeadZone"))
             {
-                _isDead = true;
+                _canMove = false;
                 _audioSource.PlayOneShot(deadSfx);
                 _gameManager.OnPlayerDead();
             }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Globalization;
 using Code.Player.Jump_Action.Jumps;
 using UnityEngine;
 
@@ -9,7 +7,8 @@ namespace Code.Player.Jump_Action
     {
         [SerializeField] private float jumpForce;
         [SerializeField] private AudioClip jumpSfx;
-        [SerializeField] private float dizzDuration;
+        [SerializeField] private AudioClip dizzJumpSfx;
+        private AudioClip _currentJumpSfx;
         private AudioSource _audioSource;
 
         private IJumpAction _standardJump;
@@ -18,14 +17,8 @@ namespace Code.Player.Jump_Action
 
         private Rigidbody2D _rb;
 
-        private void Update()
-        {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.W))
-            {
-                StartDizzy();
-            }
-        }
-
+        private AudioSource _sceneMusic;
+        
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -40,26 +33,28 @@ namespace Code.Player.Jump_Action
             _standardJump.Config(_rb, jumpForce);
             _dizzJump.Config(_rb, jumpForce);
             _currentJump = _standardJump;
+            _currentJumpSfx = jumpSfx;
         }
         
         public void Jump()
         {
             _currentJump.DoJump();
-            _audioSource.PlayOneShot(jumpSfx);
+            _audioSource.PlayOneShot(_currentJumpSfx);
         }
 
         public void StartDizzy()
         {
             _currentJump = _dizzJump;
+            _currentJumpSfx = dizzJumpSfx;
             _rb.gravityScale *= -1f;
-            StartCoroutine(DisableDizz());
         }
-        
-        private IEnumerator DisableDizz()
+
+        public void StopDizz()
         {
-            yield return new WaitForSeconds(dizzDuration);
             _rb.gravityScale *= -1f;
+            _currentJumpSfx = jumpSfx;
             _currentJump = _standardJump;
         }
+        
     }
 }
