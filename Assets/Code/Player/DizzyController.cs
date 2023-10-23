@@ -23,9 +23,11 @@ namespace Code.Player
         private MusicScene _musicScene;
 
         private bool _isDizz = false;
+
         private float _countdown;
         private TextMeshProUGUI _countdownText;
 
+        private IEnumerator _myRoutine;
         
         private void Awake()
         {
@@ -37,6 +39,7 @@ namespace Code.Player
             _musicScene = GameObject.FindGameObjectWithTag("SceneMusic").GetComponent<MusicScene>();
             _countdownText = GameObject.FindGameObjectWithTag("DizzTimer").GetComponent<TextMeshProUGUI>();
             _countdown = dizzDuration;
+            
         }
         
         private void Update()
@@ -48,12 +51,13 @@ namespace Code.Player
 
         private void StartDizz()
         {
-            StartCoroutine(DoDizz());
+            StopRoutine();
+            _myRoutine = DoDizz();
+            StartCoroutine(_myRoutine);
         }
 
         private IEnumerator DoDizz()
         {
-            
             float startTime = Time.time;
             _player.CanMove = false;
             _musicScene.StartDizz();
@@ -78,10 +82,17 @@ namespace Code.Player
             _countdownText.gameObject.SetActive(true);
             _isDizz = true;
             dizzSfx.Play();
-            StartCoroutine(StopDizz());
+            StopDizz();
         }
 
-        private IEnumerator StopDizz()
+        private void StopDizz()
+        {
+            StopRoutine();
+            _myRoutine = CancelDizz();
+            StartCoroutine(_myRoutine);
+        }
+
+        private IEnumerator CancelDizz()
         {
             yield return new WaitForSeconds(dizzDuration);
             _isDizz = false;
@@ -104,6 +115,19 @@ namespace Code.Player
         private void UpdateCountdownText()
         {
             _countdownText.text = _countdown.ToString("0");
+        }
+        
+        public bool IsDizz
+        {
+            get => _isDizz;
+            set => _isDizz = value;
+        }
+
+        private void StopRoutine()
+        {
+            if (_myRoutine == null) return;
+            StopCoroutine(_myRoutine);
+            _myRoutine = null;
         }
     }
 }

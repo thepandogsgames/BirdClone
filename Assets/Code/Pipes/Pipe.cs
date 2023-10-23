@@ -1,4 +1,4 @@
-using System;
+using Code.Player;
 using Code.Scene;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,15 +11,17 @@ namespace Code.Pipes
         [SerializeField] private Vector3 startPosition;
         [SerializeField] private AudioClip pointSfx;
         [SerializeField] private GameObject whirlwind;
-        [SerializeField] private int whirlProb = 0;
+        [SerializeField] private int whirlProb;
         private ScoreManager _scoreManager; 
         private Vector3 _movement;
         private AudioSource _audioSource;
+        private DizzyController _dizzyController;
 
         private void Awake()
         {
             _scoreManager = FindObjectOfType<ScoreManager>();
             _audioSource = GetComponent<AudioSource>();
+            _dizzyController = FindObjectOfType<DizzyController>();
         }
 
         private void Update()
@@ -47,7 +49,7 @@ namespace Code.Pipes
             whirlwind.SetActive(false);
             transform.position = new Vector3(startPosition.x,Random.Range(-1.75f, 1.75f), startPosition.z);
 
-            if (Random.Range(0, 100) < whirlProb)
+            if (Random.Range(0, 100) < whirlProb && !_dizzyController.IsDizz)
             {
                 whirlwind.SetActive(true);
             }

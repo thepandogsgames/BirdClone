@@ -48,6 +48,17 @@
                     "action": "Action button",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bc4b6337-6556-40f6-8902-058165c8265f",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Action button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
