@@ -8,6 +8,7 @@ TagManager:
   - ScoreZone
   - SceneMusic
   - Whirlwind
+  - DizzTimer
   layers:
   - Default
   - TransparentFX
