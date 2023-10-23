@@ -10,6 +10,8 @@ namespace Code.Pipes
         [SerializeField] private float speed;
         [SerializeField] private Vector3 startPosition;
         [SerializeField] private AudioClip pointSfx;
+        [SerializeField] private GameObject whirlwind;
+        [SerializeField] private int whirlProb = 0;
         private ScoreManager _scoreManager; 
         private Vector3 _movement;
         private AudioSource _audioSource;
@@ -34,18 +36,21 @@ namespace Code.Pipes
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Player"))
-            {
-                _scoreManager.AddScore(1);
-                _audioSource.PlayOneShot(pointSfx);
-            }
+            if (!other.CompareTag("Player")) return;
+            _scoreManager.AddScore(1);
+            _audioSource.PlayOneShot(pointSfx);
         }
 
         public void Reset()
         {
             gameObject.SetActive(false);
-            transform.position = startPosition;
-            transform.position = new Vector3(transform.position.x,Random.Range(-1.75f, 1.75f), transform.position.z);  
+            whirlwind.SetActive(false);
+            transform.position = new Vector3(startPosition.x,Random.Range(-1.75f, 1.75f), startPosition.z);
+
+            if (Random.Range(0, 100) < whirlProb)
+            {
+                whirlwind.SetActive(true);
+            }
         }
     }
 }

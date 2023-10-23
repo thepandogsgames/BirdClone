@@ -41,16 +41,9 @@ namespace Code.Player
         
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.W))
-            {
-                StartDizz();
-            }
-
-            if (_isDizz)
-            {
-                _countdown -= Time.deltaTime;
-                UpdateCountdownText();
-            }
+            if (!_isDizz) return;
+            _countdown -= Time.deltaTime;
+            UpdateCountdownText();
         }
 
         private void StartDizz()

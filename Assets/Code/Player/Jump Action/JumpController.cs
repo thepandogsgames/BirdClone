@@ -46,12 +46,12 @@ namespace Code.Player.Jump_Action
         {
             _currentJump = _dizzJump;
             _currentJumpSfx = dizzJumpSfx;
-            _rb.gravityScale *= -1f;
+            _rb.gravityScale = -1f;
         }
 
         public void StopDizz()
         {
-            _rb.gravityScale *= -1f;
+            _rb.gravityScale = 1f;
             _currentJumpSfx = jumpSfx;
             _currentJump = _standardJump;
         }
