@@ -39,7 +39,6 @@ namespace Code.Player
             _musicScene = GameObject.FindGameObjectWithTag("SceneMusic").GetComponent<MusicScene>();
             _countdownText = GameObject.FindGameObjectWithTag("DizzTimer").GetComponent<TextMeshProUGUI>();
             _countdown = dizzDuration;
-            
         }
         
         private void Update()
@@ -52,6 +51,7 @@ namespace Code.Player
         private void StartDizz()
         {
             StopRoutine();
+            _countdownText.gameObject.SetActive(false);
             _myRoutine = DoDizz();
             StartCoroutine(_myRoutine);
         }
@@ -79,6 +79,7 @@ namespace Code.Player
             _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
             _boxCollider2D.enabled = true;
             _jumpController.StartDizzy();
+            _countdown = dizzDuration;
             _countdownText.gameObject.SetActive(true);
             _isDizz = true;
             dizzSfx.Play();
@@ -96,7 +97,6 @@ namespace Code.Player
         {
             yield return new WaitForSeconds(dizzDuration);
             _isDizz = false;
-            _countdown = dizzDuration;
             _countdownText.gameObject.SetActive(false);
             dizzSfx.Stop();
             _musicScene.StopDizz();

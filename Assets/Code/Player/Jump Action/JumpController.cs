@@ -18,10 +18,13 @@ namespace Code.Player.Jump_Action
         private Rigidbody2D _rb;
 
         private AudioSource _sceneMusic;
+
+        private Animator _animator;
         
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _animator = GetComponent<Animator>();
             Config();
             _audioSource = GetComponent<AudioSource>();
         }
@@ -39,6 +42,7 @@ namespace Code.Player.Jump_Action
         public void Jump()
         {
             _currentJump.DoJump();
+            _animator.Play("Jump", -1, 0);
             _audioSource.PlayOneShot(_currentJumpSfx);
         }
 

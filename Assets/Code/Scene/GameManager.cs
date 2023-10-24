@@ -17,9 +17,11 @@ namespace Code.Scene
         [SerializeField] private GameObject endMenu;
         [SerializeField] private GameObject endMenuMobile;
         private GameObject _endMenu;
+        private GameObject _playerInstance;
 
         private void Awake()
         {
+            Application.targetFrameRate = 60; //Temp
             var persis = new PlayerPrefPersistance();
             if (Application.isMobilePlatform)
             {
@@ -40,20 +42,11 @@ namespace Code.Scene
         private void Start()
         {
             _scoreManager.SetMaxScore(_load.LoadBestScore());
-
         }
 
         private void InstancePlayer()
         {
-
-            if (Application.isMobilePlatform)
-            {
-                GameObject playerInstance = Instantiate(playerMobile, new Vector3(-1.5f,0f,0f), quaternion.identity);
-            }
-            else
-            {
-                GameObject playerInstance = Instantiate(player, new Vector3(-1.5f,0f,0f), quaternion.identity);
-            }
+            _playerInstance = Instantiate(Application.isMobilePlatform ? playerMobile : player, new Vector3(-1.5f,0f,0f), quaternion.identity);
         }
 
         public void OnPlayerDead()
