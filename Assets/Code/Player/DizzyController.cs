@@ -23,9 +23,11 @@ namespace Code.Player
         private MusicScene _musicScene;
 
         private bool _isDizz = false;
+
         private float _countdown;
         private TextMeshProUGUI _countdownText;
 
+        private IEnumerator _myRoutine;
         
         private void Awake()
         {
@@ -48,12 +50,14 @@ namespace Code.Player
 
         private void StartDizz()
         {
-            StartCoroutine(DoDizz());
+            StopRoutine();
+            _countdownText.gameObject.SetActive(false);
+            _myRoutine = DoDizz();
+            StartCoroutine(_myRoutine);
         }
 
         private IEnumerator DoDizz()
         {
-            
             float startTime = Time.time;
             _player.CanMove = false;
             _musicScene.StartDizz();
@@ -75,17 +79,24 @@ namespace Code.Player
             _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
             _boxCollider2D.enabled = true;
             _jumpController.StartDizzy();
+            _countdown = dizzDuration;
             _countdownText.gameObject.SetActive(true);
             _isDizz = true;
             dizzSfx.Play();
-            StartCoroutine(StopDizz());
+            StopDizz();
         }
 
-        private IEnumerator StopDizz()
+        private void StopDizz()
+        {
+            StopRoutine();
+            _myRoutine = CancelDizz();
+            StartCoroutine(_myRoutine);
+        }
+
+        private IEnumerator CancelDizz()
         {
             yield return new WaitForSeconds(dizzDuration);
             _isDizz = false;
-            _countdown = dizzDuration;
             _countdownText.gameObject.SetActive(false);
             dizzSfx.Stop();
             _musicScene.StopDizz();
@@ -104,6 +115,19 @@ namespace Code.Player
         private void UpdateCountdownText()
         {
             _countdownText.text = _countdown.ToString("0");
+        }
+        
+        public bool IsDizz
+        {
+            get => _isDizz;
+            set => _isDizz = value;
+        }
+
+        private void StopRoutine()
+        {
+            if (_myRoutine == null) return;
+            StopCoroutine(_myRoutine);
+            _myRoutine = null;
         }
     }
 }

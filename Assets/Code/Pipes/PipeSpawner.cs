@@ -18,11 +18,9 @@ namespace Code.Pipes
         private void Update()
         {
             _timer += Time.deltaTime;
-            if (_timer > spawnInterval)
-            {
-                SpawnPipe();
-                _timer = 0;
-            }
+            if (!(_timer > spawnInterval)) return;
+            SpawnPipe();
+            _timer = 0;
         }
 
         private void SpawnPipe()

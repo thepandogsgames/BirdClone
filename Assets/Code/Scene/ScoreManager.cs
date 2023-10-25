@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +10,28 @@ namespace Code.Scene
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI finalScoreText;
         [SerializeField] private TextMeshProUGUI maxScoreText;
+        [SerializeField] private TextMeshProUGUI scoreTextMobile;
+        [SerializeField] private TextMeshProUGUI finalScoreTextMobile;
+        [SerializeField] private TextMeshProUGUI maxScoreTextMobile;
+        private TextMeshProUGUI _scoreText;
+        private TextMeshProUGUI _finalScoreText;
+        private TextMeshProUGUI _maxScoreText;
+
+        private void Awake()
+        {
+            if (Application.isMobilePlatform)
+            {
+                _scoreText = scoreTextMobile;
+                _finalScoreText = finalScoreTextMobile;
+                _maxScoreText = maxScoreTextMobile;
+            }
+            else
+            {
+                _scoreText = scoreText;
+                _finalScoreText = finalScoreText;
+                _maxScoreText = maxScoreText;
+            }
+        }
 
         public void AddScore(int score)
         {
@@ -20,19 +41,19 @@ namespace Code.Scene
 
         private void UpdateScore()
         {
-            scoreText.text = _score.ToString();
-            finalScoreText.text = _score.ToString();
+            _scoreText.text = _score.ToString();
+            _finalScoreText.text = _score.ToString();
             if (_maxScore < _score)
             {
                 _maxScore = _score;
-                maxScoreText.text = _maxScore.ToString();
+                _maxScoreText.text = _maxScore.ToString();
             }
         }
         
         public void SetMaxScore(int score)
         {
             _maxScore = score;
-            maxScoreText.text = _maxScore.ToString();
+            _maxScoreText.text = _maxScore.ToString();
         }
 
         public int GetScore()

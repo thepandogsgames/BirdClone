@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ namespace Code.Pipes
     public class PipePooler : MonoBehaviour
     {
         [SerializeField] private GameObject pipePrefab;
+        [SerializeField] private GameObject pipePrefabMobile;
         [SerializeField] private int poolSize;
 
         private List<GameObject> _pipesPool;
@@ -16,7 +16,15 @@ namespace Code.Pipes
 
             for (int i = 0; i < poolSize; i++)
             {
-                GameObject pipe = Instantiate(pipePrefab);
+                GameObject pipe;
+                if (Application.isMobilePlatform)
+                {
+                    pipe = Instantiate(pipePrefabMobile);
+                }
+                else
+                {
+                    pipe = Instantiate(pipePrefab);
+                }
                 pipe.GetComponent<Pipe>().Reset();
                 _pipesPool.Add(pipe);
             }
@@ -33,6 +41,5 @@ namespace Code.Pipes
             }
             return null;
         }
-        
     }
 }
