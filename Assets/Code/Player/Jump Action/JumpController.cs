@@ -1,3 +1,4 @@
+using System;
 using Code.Player.Jump_Action.Jumps;
 using UnityEngine;
 
@@ -20,13 +21,15 @@ namespace Code.Player.Jump_Action
         private AudioSource _sceneMusic;
 
         private Animator _animator;
+
+        private bool _isDizz;
         
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
-            Config();
             _audioSource = GetComponent<AudioSource>();
+            Config();
         }
 
         private void Config()
@@ -42,22 +45,27 @@ namespace Code.Player.Jump_Action
         public void Jump()
         {
             _currentJump.DoJump();
-            _animator.Play("Jump", -1, 0);
             _audioSource.PlayOneShot(_currentJumpSfx);
+            if (_isDizz) return;
+            _animator.Play("Jump", -1, 0);
         }
 
         public void StartDizzy()
         {
             _currentJump = _dizzJump;
             _currentJumpSfx = dizzJumpSfx;
-            _rb.gravityScale = -1f;
+            _rb.gravityScale = -2f;
+            _animator.Play("DizzJump", -1, 0);
+            _isDizz = true;
         }
 
         public void StopDizz()
         {
-            _rb.gravityScale = 1f;
+            _rb.gravityScale = 2f;
             _currentJumpSfx = jumpSfx;
             _currentJump = _standardJump;
+            _animator.Play("Idle");
+            _isDizz = false;
         }
         
     }

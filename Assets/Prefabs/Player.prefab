@@ -43,10 +43,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -2184768875999734569, guid: c59ac387a74618e42ab6eea335800622, type: 2}
   m_audioClip: {fileID: 8300000, guid: 36785f270c7777a42b226c8896a3baac, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5dc0b29030262d4fa364d058ac23e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 6.5
+  jumpForce: 10
   jumpSfx: {fileID: 8300000, guid: 663d438906b9d4542a84417a419baba5, type: 3}
   dizzJumpSfx: {fileID: 8300000, guid: a384d60628de39e418a67a8d0f6ddfd2, type: 3}
 --- !u!114 &2112970003154078805
@@ -224,8 +224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb164e1d61b2ad478c635ae01cf6237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 2.35
-  rotationSpeed: 360
+  duration: 0.55
+  rotationSpeed: 720
   dizzDuration: 10
   dizzSfx: {fileID: 5488361719532381804}
 --- !u!114 &879865836660425458
@@ -438,7 +438,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
