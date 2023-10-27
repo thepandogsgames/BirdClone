@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 namespace Code.Pipes
@@ -40,6 +42,14 @@ namespace Code.Pipes
                 }
             }
             return null;
+        }
+
+        public void Reset()
+        {
+            foreach (GameObject pipe in _pipesPool)
+            {
+                pipe.GetComponent<Pipe>().Reset();
+            }
         }
     }
 }

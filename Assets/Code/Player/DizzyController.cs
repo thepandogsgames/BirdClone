@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Code.Player.Jump_Action;
 using Code.Scene;
@@ -127,6 +128,15 @@ namespace Code.Player
             if (_myRoutine == null) return;
             StopCoroutine(_myRoutine);
             _myRoutine = null;
+        }
+
+        public void Reset()
+        {
+            _isDizz = false;
+            _countdownText.gameObject.SetActive(false);
+            _musicScene.StopDizz();
+            _jumpController.StopDizz();
+            dizzSfx.Stop();
         }
     }
 }

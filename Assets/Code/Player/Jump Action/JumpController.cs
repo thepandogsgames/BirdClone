@@ -67,6 +67,10 @@ namespace Code.Player.Jump_Action
             _animator.Play("Idle");
             _isDizz = false;
         }
-        
+
+        public void Reset()
+        {
+            StopDizz();
+        }
     }
 }

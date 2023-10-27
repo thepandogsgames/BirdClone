@@ -1,7 +1,7 @@
 using Code.Persistance;
+using Code.Pipes;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Code.Scene
 {
@@ -14,29 +14,32 @@ namespace Code.Scene
         private ISave _save;
         private ILoad _load;
         private ScoreManager _scoreManager;
-        [SerializeField] private GameObject endMenu;
-        [SerializeField] private GameObject endMenuMobile;
-        private GameObject _endMenu;
+        [SerializeField] private GameObject menu;
+        [SerializeField] private GameObject menuMobile;
+        private GameObject _menu;
         private GameObject _playerInstance;
+        private PipePooler _pipePooler;
 
         private void Awake()
         {
-            Application.targetFrameRate = 60; //Temp
+            Application.targetFrameRate = 60;
             var persis = new PlayerPrefPersistance();
             if (Application.isMobilePlatform)
             {
                 uiMobile.SetActive(true);
-                _endMenu = endMenuMobile;
+                _menu = menuMobile;
             }
             else
             {
                 ui.SetActive(true);
-                _endMenu = endMenu;
+                _menu = menu;
             }
             _save = persis;
             _load = persis;
             _scoreManager = FindObjectOfType<ScoreManager>();
+            _pipePooler = FindObjectOfType<PipePooler>();
             InstancePlayer();
+            Time.timeScale = 0f;
         }
 
         private void Start()
@@ -51,15 +54,19 @@ namespace Code.Scene
 
         public void OnPlayerDead()
         {
+            _menu.SetActive(true);
             Time.timeScale = 0f;
-            _endMenu.SetActive(true);
+            _pipePooler.Reset();
+            _playerInstance.GetComponent<Player.Player>().Reset();
             SaveScore();
         }
 
-        public void RestartGame()
+        public void StartGame()
         {
+            _playerInstance.GetComponent<Player.Player>().CanMove = true;
+            _scoreManager.Reset();
+            _menu.SetActive(false);
             Time.timeScale = 1f;
-            SceneManager.LoadScene(0);
         }
 
         private void SaveScore()
