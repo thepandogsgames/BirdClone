@@ -132,6 +132,7 @@ namespace Code.Player
 
         public void Reset()
         {
+            StopRoutine();
             _isDizz = false;
             _countdownText.gameObject.SetActive(false);
             _musicScene.StopDizz();
