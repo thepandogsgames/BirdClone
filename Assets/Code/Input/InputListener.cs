@@ -15,7 +15,7 @@ namespace Code.Input
 
         public void ActionButtonPressed(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.started)
             {
                 _inputActor.ActionButtonPressed();
             }
