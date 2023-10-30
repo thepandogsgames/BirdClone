@@ -60,5 +60,11 @@ namespace Code.Scene
         {
             return _score;
         }
+
+        public void Reset()
+        {
+            _score = 0;
+            _scoreText.text = _score.ToString();
+        }
     }
 }

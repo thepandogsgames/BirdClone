@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Code.Player.Jump_Action;
 using Code.Scene;
@@ -12,7 +13,6 @@ namespace Code.Player
         [SerializeField] private float rotationSpeed = 360;
         [SerializeField] private float dizzDuration = 10f;
         [SerializeField] private AudioSource dizzSfx;
-
 
         private Player _player;
         private JumpController _jumpController;
@@ -31,6 +31,7 @@ namespace Code.Player
         
         private void Awake()
         {
+            dizzSfx.Stop();
             _player = GetComponent<Player>();
             _jumpController = GetComponent<JumpController>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -81,8 +82,8 @@ namespace Code.Player
             _jumpController.StartDizzy();
             _countdown = dizzDuration;
             _countdownText.gameObject.SetActive(true);
-            _isDizz = true;
             dizzSfx.Play();
+            _isDizz = true;
             StopDizz();
         }
 
@@ -98,7 +99,6 @@ namespace Code.Player
             yield return new WaitForSeconds(dizzDuration);
             _isDizz = false;
             _countdownText.gameObject.SetActive(false);
-            dizzSfx.Stop();
             _musicScene.StopDizz();
             _jumpController.StopDizz();
             dizzSfx.Stop();
@@ -128,6 +128,16 @@ namespace Code.Player
             if (_myRoutine == null) return;
             StopCoroutine(_myRoutine);
             _myRoutine = null;
+        }
+
+        public void Reset()
+        {
+            StopRoutine();
+            _isDizz = false;
+            _countdownText.gameObject.SetActive(false);
+            _musicScene.StopDizz();
+            _jumpController.StopDizz();
+            dizzSfx.Stop();
         }
     }
 }
